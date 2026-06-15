@@ -1,0 +1,25 @@
+<idea-plugin>
+    <id>com.github.wwt.stock-plugin</id>
+    <name>Stock Monitor</name>
+    <vendor email="wwt@example.com">wwt</vendor>
+    <idea-version since-build="232" until-build="253.*"/>
+
+    <description><![CDATA[
+        A lightweight PyCharm tool window for watching A-share, ETF and Hong Kong stock quotes,
+        grouped watchlists, holdings, daily trades and realized profit/loss.
+    ]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.wwt.stockplugin.service.StockStateService"/>
+        <toolWindow
+                id="Stocks"
+                anchor="right"
+                icon="/icons/stock.svg"
+                factoryClass="com.github.wwt.stockplugin.ui.StockToolWindowFactory"/>
+        <applicationConfigurable
+                instance="com.github.wwt.stockplugin.ui.StockSettingsConfigurable"
+                displayName="Stock Monitor"/>
+    </extensions>
+</idea-plugin>
