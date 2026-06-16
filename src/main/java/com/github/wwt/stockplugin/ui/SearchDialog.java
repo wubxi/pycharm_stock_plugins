@@ -34,6 +34,14 @@ public class SearchDialog extends DialogWrapper {
         init();
     }
 
+    public SearchDialog(@Nullable Project project, StockQuoteService quoteService, String keyword) {
+        this(project, quoteService);
+        if (keyword != null && !keyword.isBlank()) {
+            keywordField.setText(keyword.trim());
+            runSearch();
+        }
+    }
+
     public StockItem selectedStock() {
         return resultList.getSelectedValue();
     }

@@ -1,13 +1,18 @@
 <idea-plugin>
-    <id>com.github.wwt.stock-plugin</id>
-    <name>Stock Monitor</name>
-    <vendor email="wwt@example.com">wwt</vendor>
+    <id>com.github.wubxi.stockmonitor</id>
+    <name>A/H Stock Monitor</name>
+    <version>0.1.13</version>
+    <vendor email="wwt@example.com">wubxi</vendor>
     <idea-version since-build="232" until-build="253.*"/>
 
     <description><![CDATA[
         A lightweight PyCharm tool window for watching A-share, ETF and Hong Kong stock quotes,
         grouped watchlists, holdings, daily trades and realized profit/loss.
     ]]></description>
+
+    <change-notes><![CDATA[
+        Added holding profit percentage below the holding profit amount.
+    ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
 
@@ -20,6 +25,6 @@
                 factoryClass="com.github.wwt.stockplugin.ui.StockToolWindowFactory"/>
         <applicationConfigurable
                 instance="com.github.wwt.stockplugin.ui.StockSettingsConfigurable"
-                displayName="Stock Monitor"/>
+                displayName="A/H Stock Monitor"/>
     </extensions>
 </idea-plugin>

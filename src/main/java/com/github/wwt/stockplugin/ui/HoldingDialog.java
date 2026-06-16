@@ -40,6 +40,18 @@ public class HoldingDialog extends DialogWrapper {
         }
     }
 
+    public HoldingDialog(@Nullable Project project, StockQuoteService quoteService, HoldingItem holding) {
+        this(project, quoteService);
+        setTitle("修改持仓");
+        if (holding != null) {
+            codeField.setText(holding.displayCode());
+            nameField.setText(holding.name);
+            sharesSpinner.setValue(holding.shares);
+            availableSpinner.setValue(holding.availableShares);
+            costSpinner.setValue(holding.costPrice);
+        }
+    }
+
     public HoldingItem holding() {
         StockItem stock = quoteService.normalizeStock(codeField.getText(), nameField.getText())
                 .orElse(new StockItem("", codeField.getText().trim(), nameField.getText().trim()));

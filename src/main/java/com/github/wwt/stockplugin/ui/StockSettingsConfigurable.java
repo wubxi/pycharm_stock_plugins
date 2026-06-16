@@ -25,11 +25,13 @@ public class StockSettingsConfigurable implements Configurable {
     private JTextField profitColorField;
     private JTextField lossColorField;
     private JCheckBox privacyModeCheckBox;
+    private JCheckBox hideAmountsCheckBox;
+    private JCheckBox compactWatchModeCheckBox;
     private JSpinner refreshSpinner;
 
     @Override
     public @Nls String getDisplayName() {
-        return "Stock Monitor";
+        return "A/H Stock Monitor";
     }
 
     @Override
@@ -44,6 +46,8 @@ public class StockSettingsConfigurable implements Configurable {
         profitColorField = new JTextField(12);
         lossColorField = new JTextField(12);
         privacyModeCheckBox = new JCheckBox("隐私模式：盈亏不使用红绿颜色");
+        hideAmountsCheckBox = new JCheckBox("隐私模式下隐藏金额");
+        compactWatchModeCheckBox = new JCheckBox("自选列表紧凑模式");
         refreshSpinner = new JSpinner(new SpinnerNumberModel(15, 5, 300, 1));
 
         constraints.gridx = 0;
@@ -72,6 +76,18 @@ public class StockSettingsConfigurable implements Configurable {
 
         constraints.gridx = 0;
         constraints.gridy = 4;
+        panel.add(new JLabel("隐私显示"), constraints);
+        constraints.gridx = 1;
+        panel.add(hideAmountsCheckBox, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 5;
+        panel.add(new JLabel("自选列表"), constraints);
+        constraints.gridx = 1;
+        panel.add(compactWatchModeCheckBox, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 6;
         panel.add(new JLabel("刷新间隔(秒)"), constraints);
         constraints.gridx = 1;
         panel.add(refreshSpinner, constraints);
@@ -87,6 +103,8 @@ public class StockSettingsConfigurable implements Configurable {
                 || !state.profitColorHex.equals(profitColorField.getText().trim())
                 || !state.lossColorHex.equals(lossColorField.getText().trim())
                 || state.privacyMode != privacyModeCheckBox.isSelected()
+                || state.hideAmountsInPrivacyMode != hideAmountsCheckBox.isSelected()
+                || state.compactWatchMode != compactWatchModeCheckBox.isSelected()
                 || state.refreshSeconds != ((Number) refreshSpinner.getValue()).intValue();
     }
 
@@ -100,6 +118,8 @@ public class StockSettingsConfigurable implements Configurable {
         state.profitColorHex = profitColor;
         state.lossColorHex = lossColor;
         state.privacyMode = privacyModeCheckBox.isSelected();
+        state.hideAmountsInPrivacyMode = hideAmountsCheckBox.isSelected();
+        state.compactWatchMode = compactWatchModeCheckBox.isSelected();
         state.refreshSeconds = ((Number) refreshSpinner.getValue()).intValue();
     }
 
@@ -118,6 +138,12 @@ public class StockSettingsConfigurable implements Configurable {
         if (privacyModeCheckBox != null) {
             privacyModeCheckBox.setSelected(state.privacyMode);
         }
+        if (hideAmountsCheckBox != null) {
+            hideAmountsCheckBox.setSelected(state.hideAmountsInPrivacyMode);
+        }
+        if (compactWatchModeCheckBox != null) {
+            compactWatchModeCheckBox.setSelected(state.compactWatchMode);
+        }
         if (refreshSpinner != null) {
             refreshSpinner.setValue(state.refreshSeconds);
         }
@@ -129,6 +155,8 @@ public class StockSettingsConfigurable implements Configurable {
         profitColorField = null;
         lossColorField = null;
         privacyModeCheckBox = null;
+        hideAmountsCheckBox = null;
+        compactWatchModeCheckBox = null;
         refreshSpinner = null;
     }
 

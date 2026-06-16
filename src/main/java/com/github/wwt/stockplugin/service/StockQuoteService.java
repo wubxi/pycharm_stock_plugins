@@ -163,6 +163,7 @@ public class StockQuoteService {
         StockItem stock = new StockItem(requested.market, normalizeReturnedCode(requested.market, code), name);
         double price = number(valueAt(fields, 3));
         double previousClose = number(valueAt(fields, 4));
+        double openPrice = firstFinite(number(valueAt(fields, 5)), previousClose);
         double changePercent = firstFinite(
                 number(valueAt(fields, 32)),
                 previousClose > 0 && Double.isFinite(price) ? (price - previousClose) / previousClose * 100 : Double.NaN
@@ -171,7 +172,7 @@ public class StockQuoteService {
         if (!"HK".equalsIgnoreCase(requested.market) && Double.isFinite(amount)) {
             amount *= 10000;
         }
-        return new Quote(stock, price, round(changePercent, 2), amount, previousClose);
+        return new Quote(stock, price, round(changePercent, 2), amount, previousClose, openPrice);
     }
 
     private HttpRequest.Builder request(String url) {
